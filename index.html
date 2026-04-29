@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nina1pp</title>
+<style>
+  body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;max-width:760px;margin:60px auto;padding:0 20px;color:#222;line-height:1.6}
+  h1{font-size:2.2em;margin-bottom:0}
+  .tag{color:#888;margin-top:4px}
+  h2{margin-top:36px}
+  a{color:#0070f3}
+  footer{margin-top:60px;padding-top:20px;border-top:1px solid #eee;color:#888;font-size:0.9em}
+</style>
+</head>
+<body>
+  <h1>nina1pp</h1>
+  <p class="tag">Turn long YouTube videos into short vertical clips for TikTok.</p>
+
+  <h2>What it does</h2>
+  <p>
+    nina1pp helps creators repurpose long-form video content. The user pastes a YouTube URL and
+    selects a clip range; the tool downloads the source, cuts the segment, reformats it to a 9:16
+    vertical aspect ratio, and uploads the resulting clip to the user's own TikTok account as a
+    draft for the user to review and publish.
+  </p>
+
+  <h2>How TikTok integration works</h2>
+  <ul>
+    <li>The user logs in with TikTok using TikTok's official Login Kit (OAuth 2.0).</li>
+    <li>nina1pp requests the <code>user.info.basic</code> scope to identify the authenticated user.</li>
+    <li>nina1pp requests the <code>video.upload</code> scope to send the prepared clip as a draft to the user's TikTok inbox.</li>
+    <li>The user reviews and publishes the draft from the TikTok mobile app. nina1pp never publishes content automatically without explicit user action.</li>
+  </ul>
+
+  <h2>Legal</h2>
+  <ul>
+    <li><a href="privacy.html">Privacy Policy</a></li>
+    <li><a href="terms.html">Terms of Service</a></li>
+  </ul>
+
+  <h2>Contact</h2>
+  <p>For support or inquiries: <a href="mailto:test8902026@gmail.com">test8902026@gmail.com</a></p>
+
+  <footer>&copy; 2026 nina1pp. All rights reserved.</footer>
+</body>
+</html>
