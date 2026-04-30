@@ -3,45 +3,279 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nina1pp</title>
+<meta name="description" content="nina1pp turns long YouTube videos into short vertical clips and uploads them to your TikTok account as drafts.">
+<title>nina1pp — YouTube clips to TikTok in one click</title>
 <style>
-  body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;max-width:760px;margin:60px auto;padding:0 20px;color:#222;line-height:1.6}
-  h1{font-size:2.2em;margin-bottom:0}
-  .tag{color:#888;margin-top:4px}
-  h2{margin-top:36px}
-  a{color:#0070f3}
-  footer{margin-top:60px;padding-top:20px;border-top:1px solid #eee;color:#888;font-size:0.9em}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,sans-serif;color:#111;line-height:1.6;background:#fff}
+  a{color:#ff0050;text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* Nav */
+  nav{position:sticky;top:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);border-bottom:1px solid #eee;padding:14px 0;z-index:100}
+  .nav-inner{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center}
+  .logo{font-weight:800;font-size:1.4em;letter-spacing:-0.02em;display:flex;align-items:center;gap:8px}
+  .logo-dot{width:14px;height:14px;border-radius:4px;background:linear-gradient(135deg,#25F4EE 0%,#FE2C55 100%)}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{color:#444;font-size:0.95em;font-weight:500}
+  .nav-links a:hover{color:#000;text-decoration:none}
+  .btn{background:#000;color:#fff !important;padding:10px 20px;border-radius:8px;font-weight:600;font-size:0.95em;display:inline-block}
+  .btn:hover{background:#222;text-decoration:none !important}
+  .btn-primary{background:#FE2C55;color:#fff !important}
+  .btn-primary:hover{background:#e02448}
+
+  /* Hero */
+  .hero{padding:90px 24px 60px;text-align:center;background:linear-gradient(180deg,#fff 0%,#fafafa 100%)}
+  .hero-inner{max-width:880px;margin:0 auto}
+  .badge{display:inline-block;background:#fff1f4;color:#FE2C55;padding:6px 14px;border-radius:999px;font-size:0.85em;font-weight:600;margin-bottom:24px;border:1px solid #ffd5de}
+  h1{font-size:3.2em;line-height:1.1;letter-spacing:-0.03em;font-weight:800;margin-bottom:20px}
+  h1 span{background:linear-gradient(90deg,#25F4EE,#FE2C55);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .subtitle{font-size:1.25em;color:#555;max-width:620px;margin:0 auto 36px}
+  .hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn-large{padding:14px 28px;font-size:1.05em}
+
+  /* Section */
+  section{padding:80px 24px}
+  .container{max-width:1100px;margin:0 auto}
+  .section-head{text-align:center;margin-bottom:50px}
+  .section-tag{color:#FE2C55;font-weight:600;font-size:0.9em;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px}
+  h2{font-size:2.2em;letter-spacing:-0.02em;font-weight:800;margin-bottom:14px}
+  .section-sub{color:#666;font-size:1.1em;max-width:600px;margin:0 auto}
+
+  /* Features grid */
+  .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px}
+  .feature{padding:28px;border:1px solid #eee;border-radius:14px;background:#fff;transition:all 0.2s}
+  .feature:hover{border-color:#FE2C55;transform:translateY(-2px);box-shadow:0 8px 24px rgba(254,44,85,0.08)}
+  .feature-icon{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#25F4EE,#FE2C55);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.4em;margin-bottom:18px}
+  .feature h3{font-size:1.15em;font-weight:700;margin-bottom:8px}
+  .feature p{color:#666;font-size:0.95em}
+
+  /* Steps */
+  .steps-section{background:#fafafa}
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;counter-reset:step}
+  .step{padding:28px;background:#fff;border-radius:14px;position:relative;border:1px solid #eee;counter-increment:step}
+  .step::before{content:counter(step);position:absolute;top:-16px;left:24px;width:36px;height:36px;border-radius:50%;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.95em}
+  .step h3{font-size:1.1em;margin:8px 0 6px;font-weight:700}
+  .step p{color:#666;font-size:0.92em}
+
+  /* Demo */
+  .demo-box{background:linear-gradient(135deg,#000 0%,#1a1a1a 100%);color:#fff;padding:50px;border-radius:18px;text-align:center}
+  .demo-box h2{color:#fff;margin-bottom:12px}
+  .demo-box p{color:#bbb;margin-bottom:30px;font-size:1.05em}
+  .demo-mock{background:#0a0a0a;border:1px solid #333;border-radius:10px;padding:22px;text-align:left;font-family:'SF Mono',Consolas,Monaco,monospace;font-size:0.88em;color:#0f0;max-width:640px;margin:0 auto}
+  .demo-mock .prompt{color:#888}
+  .demo-mock .ok{color:#25F4EE}
+  .demo-mock .stage{color:#FE2C55}
+
+  /* FAQ */
+  .faq{max-width:760px;margin:0 auto}
+  .faq-item{border-bottom:1px solid #eee;padding:24px 0}
+  .faq-item:last-child{border-bottom:0}
+  .faq-q{font-weight:700;font-size:1.1em;margin-bottom:8px;color:#111}
+  .faq-a{color:#555}
+
+  /* Footer */
+  footer{background:#0a0a0a;color:#aaa;padding:50px 24px 30px}
+  .footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:36px;margin-bottom:30px}
+  .footer-col h4{color:#fff;font-size:0.95em;margin-bottom:14px;font-weight:700}
+  .footer-col a{display:block;color:#888;font-size:0.9em;padding:4px 0}
+  .footer-col a:hover{color:#fff}
+  .footer-bottom{max-width:1100px;margin:0 auto;padding-top:24px;border-top:1px solid #222;color:#666;font-size:0.85em;text-align:center}
+
+  @media (max-width:640px){
+    h1{font-size:2.2em}
+    h2{font-size:1.7em}
+    .hero{padding:60px 20px 40px}
+    section{padding:50px 20px}
+    .nav-links{gap:16px}
+    .nav-links a:not(.btn){display:none}
+  }
 </style>
 </head>
 <body>
-  <h1>nina1pp</h1>
-  <p class="tag">Turn long YouTube videos into short vertical clips for TikTok.</p>
 
-  <h2>What it does</h2>
-  <p>
-    nina1pp helps creators repurpose long-form video content. The user pastes a YouTube URL and
-    selects a clip range; the tool downloads the source, cuts the segment, reformats it to a 9:16
-    vertical aspect ratio, and uploads the resulting clip to the user's own TikTok account as a
-    draft for the user to review and publish.
-  </p>
+<nav>
+  <div class="nav-inner">
+    <a href="/nina1pp-site/" class="logo"><span class="logo-dot"></span> nina1pp</a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+      <a href="mailto:test8902026@gmail.com" class="btn">Contact</a>
+    </div>
+  </div>
+</nav>
 
-  <h2>How TikTok integration works</h2>
-  <ul>
-    <li>The user logs in with TikTok using TikTok's official Login Kit (OAuth 2.0).</li>
-    <li>nina1pp requests the <code>user.info.basic</code> scope to identify the authenticated user.</li>
-    <li>nina1pp requests the <code>video.upload</code> scope to send the prepared clip as a draft to the user's TikTok inbox.</li>
-    <li>The user reviews and publishes the draft from the TikTok mobile app. nina1pp never publishes content automatically without explicit user action.</li>
-  </ul>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="badge">✨ Built for content creators</div>
+    <h1>Turn long YouTube videos into <span>viral TikTok clips</span> in one click</h1>
+    <p class="subtitle">
+      Pick a moment from any YouTube video, and nina1pp downloads it, cuts it,
+      reformats it to vertical 9:16, and sends it straight to your TikTok account
+      as a draft. You review and publish from your phone.
+    </p>
+    <div class="hero-cta">
+      <a href="#how" class="btn btn-primary btn-large">See how it works</a>
+      <a href="#features" class="btn btn-large">Explore features</a>
+    </div>
+  </div>
+</section>
 
-  <h2>Legal</h2>
-  <ul>
-    <li><a href="privacy.html">Privacy Policy</a></li>
-    <li><a href="terms.html">Terms of Service</a></li>
-  </ul>
+<section id="features">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-tag">Features</div>
+      <h2>Everything you need to repurpose long-form video</h2>
+      <p class="section-sub">Built on TikTok's official Login Kit and Content Posting API. Zero compromise on safety, privacy, or your account.</p>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>One-click clipping</h3>
+        <p>Paste a YouTube URL, choose start and end timestamps, and the clip is generated automatically.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📱</div>
+        <h3>Auto vertical 9:16</h3>
+        <p>The clip is reformatted to TikTok's vertical aspect ratio with a soft blurred background, never cropped or stretched.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔐</div>
+        <h3>Official OAuth login</h3>
+        <p>Secure authentication via TikTok's Login Kit with OAuth 2.0 + PKCE. We never store your TikTok password.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📤</div>
+        <h3>Draft-first publishing</h3>
+        <p>Clips arrive in your TikTok inbox as drafts. You review, add hashtags, sound, and publish manually — full control.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🗑️</div>
+        <h3>No data retention</h3>
+        <p>Source videos and generated clips are deleted within 24 hours. We only keep what's needed to operate.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🚫</div>
+        <h3>No background posting</h3>
+        <p>nina1pp never publishes to your account without you opening the TikTok app and pressing publish yourself.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <h2>Contact</h2>
-  <p>For support or inquiries: <a href="mailto:test8902026@gmail.com">test8902026@gmail.com</a></p>
+<section id="how" class="steps-section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-tag">How it works</div>
+      <h2>From YouTube link to TikTok draft in 4 steps</h2>
+      <p class="section-sub">No editing software, no manual export, no re-upload. The full workflow takes about 30 seconds.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3>Login with TikTok</h3>
+        <p>Authenticate once with your TikTok account using the official OAuth flow. Grant the scopes shown.</p>
+      </div>
+      <div class="step">
+        <h3>Paste a YouTube URL</h3>
+        <p>Pick any public YouTube video and choose the start and end of the segment you want to clip.</p>
+      </div>
+      <div class="step">
+        <h3>nina1pp processes it</h3>
+        <p>The video is downloaded, cut to the chosen segment, and reformatted to vertical 1080×1920.</p>
+      </div>
+      <div class="step">
+        <h3>Publish from your phone</h3>
+        <p>The clip lands in your TikTok inbox as a draft. Open the app, add caption and hashtags, and post.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <footer>&copy; 2026 nina1pp. All rights reserved.</footer>
+<section>
+  <div class="container">
+    <div class="demo-box">
+      <h2>The actual processing pipeline</h2>
+      <p>This is what happens under the hood when you click "Generate clip":</p>
+      <div class="demo-mock">
+<span class="prompt">$</span> nina1pp clip --url "youtube.com/watch?v=..." --start 30 --end 60
+<span class="stage">[1/4]</span> downloading source video with yt-dlp ...
+<span class="stage">[2/4]</span> cutting segment 30s → 60s with ffmpeg ...
+<span class="stage">[3/4]</span> reformatting to 9:16 with blurred background ...
+<span class="stage">[4/4]</span> uploading to TikTok inbox via Content Posting API ...
+<span class="ok">✓</span> sent to your TikTok inbox. publish_id: v_inbox_file~v2.7634049...
+<span class="ok">✓</span> open TikTok on your phone to review and publish.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-tag">FAQ</div>
+      <h2>Frequently asked questions</h2>
+    </div>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q">Does nina1pp publish to my TikTok automatically?</div>
+        <div class="faq-a">No. Clips are uploaded to your TikTok inbox as drafts. You always open the TikTok mobile app and press publish yourself. nina1pp never posts on your behalf without explicit user action.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What permissions does nina1pp request?</div>
+        <div class="faq-a">Two TikTok scopes: <code>user.info.basic</code> (to identify you after login) and <code>video.upload</code> (to send the clip to your inbox as a draft). We never request access to your followers, your videos list, or your DMs.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Where are my YouTube videos and clips stored?</div>
+        <div class="faq-a">Source videos are deleted right after the clip is generated. Generated clips are deleted within 24 hours. We do not back up, share, or analyze your content. See our <a href="privacy.html">Privacy Policy</a> for full details.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do I need to install anything?</div>
+        <div class="faq-a">No. nina1pp runs entirely in the browser on the web side, and on the TikTok app on your phone for the publish step. No browser extensions, no desktop software.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I revoke nina1pp's access?</div>
+        <div class="faq-a">Yes, anytime. Open the TikTok app → Settings → Security & Permissions → Manage app permissions → Revoke nina1pp. Your access tokens become invalid immediately.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is this affiliated with TikTok?</div>
+        <div class="faq-a">No. nina1pp is an independent tool that uses TikTok's official public Developer APIs (Login Kit and Content Posting API). It is not endorsed by or affiliated with TikTok.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I clip private or unlisted YouTube videos?</div>
+        <div class="faq-a">Only videos that are publicly accessible via YouTube can be processed. nina1pp does not bypass YouTube's privacy or copyright protections. You are responsible for ensuring you have the rights to the content you clip.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="logo" style="color:#fff;margin-bottom:14px"><span class="logo-dot"></span> nina1pp</div>
+      <p style="font-size:0.88em;color:#888">YouTube to TikTok, the simple way.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:test8902026@gmail.com">test8902026@gmail.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 nina1pp. Not affiliated with TikTok or Google.
+  </div>
+</footer>
+
 </body>
 </html>
